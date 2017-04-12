@@ -33,6 +33,7 @@ $ sudo pip install pysnmp
 ```
 Download libsmi module (used to compile the MIB)
 https://www.ibr.cs.tu-bs.de/projects/libsmi/download/libsmi-current.tar.gz
+
 Extract the module
 ```sh
 $ cd libsmi-0.5.0/
