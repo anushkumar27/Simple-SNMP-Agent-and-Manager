@@ -1,0 +1,36 @@
+MY-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+        OBJECT-TYPE, Integer32, NOTIFICATION-TYPE, enterprises
+                     FROM SNMPv2-SMI
+;
+
+myCompany       OBJECT IDENTIFIER ::= {enterprises 42}
+
+testCount OBJECT-TYPE
+    SYNTAX Integer32
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION "A sample count of something."
+    ::= {myCompany 1}
+
+testDescription OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION "A description of something"
+    ::= {myCompany 2}
+    
+testInteger OBJECT-TYPE
+    SYNTAX Integer32
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION "A sample Integer."
+    ::= {myCompany 4}
+
+testTrap NOTIFICATION-TYPE
+    STATUS current
+    DESCRIPTION "Test notification"
+    ::= {myCompany 3}
+
+END
