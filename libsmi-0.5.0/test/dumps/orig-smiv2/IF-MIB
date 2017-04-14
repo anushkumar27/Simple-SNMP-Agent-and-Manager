@@ -1,0 +1,40 @@
+0a1
+> 
+780c781
+< IANAifType-MIB;
+---
+> IANAifType-MIB
+1204,1205d1204
+< INTEGER
+< INTEGER
+1309c1308
+< mib-2,
+---
+> mib-2
+1348c1347
+< NOTIFICATION-GROUP
+---
+> NOTIFICATION-GROUP,
+1352c1351
+< NOTIFICATION-TYPE
+---
+> NOTIFICATION-TYPE,
+1391c1390
+< OBJECT-GROUP,
+---
+> OBJECT-GROUP
+1560a1560,1561
+> RowStatus
+> RowStatus
+1583c1584
+< SNMPv2-TC
+---
+> SNMPv2-TC;
+1749c1750
+< TestAndIncr
+---
+> TestAndIncr,
+1767c1768
+< TruthValue,
+---
+> TruthValue

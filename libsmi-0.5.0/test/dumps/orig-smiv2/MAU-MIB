@@ -1,0 +1,31 @@
+1c1
+< ;
+---
+> 
+787c787
+< IANAifJackType
+---
+> IANAifJackType,
+803c803
+< IANAifMauTypeListBits,
+---
+> IANAifMauTypeListBits
+1209c1209
+< NOTIFICATION-GROUP
+---
+> NOTIFICATION-GROUP,
+1240c1240
+< OBJECT-GROUP,
+---
+> OBJECT-GROUP
+1528c1528
+< SNMPv2-TC
+---
+> SNMPv2-TC;
+1670c1670,1671
+< TEXTUAL-CONVENTION
+---
+> TEXTUAL-CONVENTION,
+> TruthValue
+1672d1672
+< TruthValue,

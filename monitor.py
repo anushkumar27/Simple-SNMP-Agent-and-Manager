@@ -5,7 +5,8 @@ from pysnmp.hlapi import *
 from threading import Thread
 import sys
 
-hostname = '127.0.0.1'
+hostname = '192.168.1.200'
+target = '192.168.1.14'
 port = 162
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serversocket.bind((hostname, port))
@@ -22,23 +23,23 @@ def send_msg(sock):
 Thread(target=send_msg, args=(serversocket,)).start()  
 
 print "Getting Objects:\n\n"
-g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testCount', 0)))
+g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testCount', 0)))
 x = next(g)
 print(x[3][0])
-g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testDescription', 0)))
+g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testDescription', 0)))
 x = next(g)
 print(x[3][0])
-g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testInteger', 0)))
+g = getCmd(SnmpEngine(),CommunityData('public'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testInteger', 0)))
 x = next(g)
 print(x[3][0])
 
 print "Setting Objects:\n\n"
-g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testCount', 0), 1000))
+g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testCount', 0), 1000))
 x = next(g)
 print(x[3][0])
-g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testDescription', 0), "New Description"))
+g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testDescription', 0), "New Description"))
 x = next(g)
 print(x[3][0])
-g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget(('localhost', 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testInteger', 0), 2000))
+g = setCmd(SnmpEngine(),CommunityData('private'),UdpTransportTarget((target, 161)),ContextData(),ObjectType(ObjectIdentity('MY-MIB', 'testInteger', 0), 2000))
 x = next(g)
 print(x[3][0])

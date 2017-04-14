@@ -1,0 +1,83 @@
+.\"
+.\" $Id: libsmi.3.in 1637 2009-06-14 17:27:15Z schoenw $
+.\"
+.TH libsmi 3  "August 16, 2001" "IBR" "SMI Management Information Library"
+.SH NAME
+libsmi \- library to access SMI management information
+.SH DESCRIPTION
+This library contains functions that allow access to SMI management
+information stored in repositories that are managed by \fBlibsmi\fP,
+currently directories containing SMIv1/v2 and SMIng MIB module files.
+.PP
+The libsmi API is defined in \fBsmi.h\fP. Functions are
+documented in \fBsmi_config\fP(3), \fBsmi_module\fP(3),
+\fBsmi_node\fP(3), \fBsmi_type\fP(3), and \fBsmi_macro\fP(3).
+.PP
+The purpose of libsmi is to separate the weird parsing and handling of
+MIB modules from management applications. MIB modules conforming to
+SMIv1, SMIv2 and SMIng - a new language for management information,
+developed originally at the Technical University of Braunschweig, 
+Germany - can be handled by libsmi.
+.PP
+.SH "EXAMPLE"
+.nf
+#include <stdio.h>
+#include <string.h>
+#include <smi.h>
+
+int main(int argc, char *argv[])
+{
+    SmiNode *smiNode;
+    SmiModule *smiModule;
+    int i, oidlen, first = 1;
+
+    const char *modules[] = {
+	"SNMPv2-SMI", "SNMPv2-TC", "SNMPv2-CONF",
+	"SNMPv2-MIB", "IF-MIB", NULL
+    };
+
+    if (argc != 2) {
+	fprintf(stderr, "Usage: smisubtree oid\n");
+	exit(1);
+    }
+
+    smiInit(NULL);
+
+    for (i = 0; modules[i]; i++) {
+	fprintf(stderr, "loading MIB module '%s'\n", modules[i]);
+	(void) smiLoadModule(modules[i]);
+    }
+
+    for((smiNode = smiGetNode(NULL, argv[1])) &&
+	    (oidlen = smiNode->oidlen);
+	smiNode && (first || smiNode->oidlen > oidlen);
+	smiNode = smiGetNextNode(smiNode, SMI_NODEKIND_ANY),
+	    first = 0) {
+	printf("%*s%-32s\n",
+	       (smiNode->oidlen - oidlen + 1) * 2, " ",
+	       smiNode->name ? smiNode->name : "<?>");
+
+    };
+
+    exit(0);
+}
+.fi
+.SH "FILES"
+.nf
+@includedir@/smi.h    SMI library header file
+.fi
+.SH "SEE ALSO"
+.BR "RFCs 2578-2580"
+specify the SMIv2 standard [STD 58].
+.BR "RFCs 3780-3781"
+define SMIng as defined by the Network Management Working Group (NMRG).
+.PP
+.BR smi.h ", "
+.BR smi_config "(3), "
+.BR smi_module "(3), "
+.BR smi_node "(3), "
+.BR smi_type "(3), "
+.BR smi_macro "(3), "
+.SH "AUTHOR"
+(C) 1999-2001 Frank Strauss, TU Braunschweig, Germany <strauss@ibr.cs.tu-bs.de>
+.br
