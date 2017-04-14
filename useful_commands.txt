@@ -1,0 +1,8 @@
+//get operation
+snmpget -m MY-MIB -v2c -c public localhost 1.3.6.1.4.1.42.1.0		-- for getting value of testCount
+
+//set operation
+snmpset -m MY-MIB -v2c -c private localhost 1.3.6.1.4.1.42.1.0 i 10  			-- for setting new value for testCount. Use s '<string>' for setting octet strings
+
+//walk operation 
+snmpwalk -m MY-MIB -v 2c -c public localhost .1					-- gets values of all onjects in MY-MIB tree structure
