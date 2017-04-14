@@ -26,6 +26,14 @@ Install python-pip
 ```sh
 $ sudo apt-get install python-pip
 ```
+Install snmpd (SNMP Deamon)
+```sh
+$ sudo apt-get install snmpd
+```
+Install standard MIBS
+```sh
+$ sudo apt-get snmp-mibs-downloader
+```
 ### Main Installation
 Install pysnmp
 ```sh
